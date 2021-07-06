@@ -15,14 +15,15 @@ class DoubleLinkedNode:
         self.next = node
 
     def add_before(self, node):
-        if node is not None:
-            node.prev = self.prev
+        if self.prev is not None:
+            self.prev.add_after(node)
+        elif node is not None:
             node.next = self
-        
+
         self.prev = node
 
     def remove(self, node):
-        if node.has_next():
+        if node.next is not None:
             node.next.prev = self
         
         self.next = node.next
@@ -33,7 +34,7 @@ class DoubleLinkedNode:
 class DoubleLinkedList:
     def __init__(self, nodes=None):
         self.head = None
-        self.last = None
+        self.tail = None
 
         if nodes is not None:
             self.head = DoubleLinkedNode(nodes.pop(0))
@@ -41,7 +42,7 @@ class DoubleLinkedList:
             
             node = self.head
             for elem in nodes:
-                node.add(LinkedNode(elem))
+                node.add_after(DoubleLinkedNode(elem))
                 node = node.next
             self.tail = node
 
@@ -57,35 +58,35 @@ class DoubleLinkedList:
             node = node.next
 
     def backwards(self):
-        node = self.last
+        node = self.tail
         while node is not None:
             yield node
-            node = node.last
+            node = node.prev
 
     def add_first(self, new_node):
         if self.head is None:
-            self.head = self.last = new_node
+            self.head = self.tail = new_node
             return 
 
-        new_node.add_after(self.head)
+        self.head.add_before(new_node)
         self.head = new_node
 
     def add_last(self, new_node):
         if self.tail is None:
-            self.head = self.last = new_node
+            self.head = self.tail = new_node
             return
 
-        new_node.add_before(self.last)
+        self.tail.add_after(new_node)
         self.tail = new_node
 
     def add_after(self, target_node_data, new_node):
         if self.head is None:
             raise Exception("empty list")
 
-        for current in self.forward:
+        for current in self.forward():
             if current.data == target_node_data:
-                new_node.add_after(current.next)
                 current.add_after(new_node)
+#                new_node.add_after(current.next)
                 if self.tail == current:
                     self.tail = new_node
 
@@ -99,7 +100,7 @@ class DoubleLinkedList:
 
         for current in self.backwards():
             if current.data == target_node_data:
-                new_node.add_before(current.prev)
+#                new_node.add_before(current.prev)
                 current.add_before(new_node)
                 if self.head == current:
                     self.head = new_node

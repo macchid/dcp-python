@@ -55,38 +55,38 @@ class LinkedList:
 
         raise Exception(f"node with data {target_node_data} not found")
 
-def add_before(self, target_node_data, new_node):
-    if self.head is None:
-        raise Exception("List is empty")
+    def add_before(self, target_node_data, new_node):
+        if self.head is None:
+            raise Exception("List is empty")
 
-    if self.head.data == target_node_data:
-        return self.add_first(new_node)
+        if self.head.data == target_node_data:
+            return self.add_first(new_node)
 
-    prev_node = self.head
-    for node in self:
-        if node.data == target_node_data:
-            prev_node.next = new_node
-            new_node.next = node
+        prev_node = self.head
+        for node in self:
+            if node.data == target_node_data:
+                prev_node.next = new_node
+                new_node.next = node
+                return
+
+            prev_node = node
+
+        raise Exception(f"Node with data {target_node_data} not found")
+
+    def remove(self, target_node_data):
+        if self.head is None:
+            raise Exception("list is empty")
+
+        if self.head.data == target_node_data:
+            self.head = self.head.next
             return
 
-        prev_node = node
+        previous_node = self.head
+        for node in self:
+            if node.data == target_node_data:
+                previous_node.next = node.next
+                return
 
-    raise Exception(f"Node with data {target_node_data} not found")
+            previous_node = node
 
-def remove(self, target_node_data):
-    if self.head is None:
-        raise Exception("list is empty")
-
-    if self.head.data == target_node_data:
-        self.head = self.head.next
-        return
-
-    previous_node = self.head
-    for node in self:
-        if node.data == target_node_data:
-            previous_node.next = node.next
-            return
-
-        previous_node = node
-
-    raise Exception(f"node with data {target_node_data} not found")
+        raise Exception(f"node with data {target_node_data} not found")
