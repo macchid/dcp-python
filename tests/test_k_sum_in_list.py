@@ -1,5 +1,5 @@
 import unittest, random
-from k_sum_in_list.k_sum_in_list import k_sum_in_list
+from pkg.k_sum_in_list import k_sum_in_list
 
 class Params:
     def __init__(self, k, l, res):

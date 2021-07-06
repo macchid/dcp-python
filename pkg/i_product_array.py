@@ -11,7 +11,7 @@ def prod_array(input):
     total = math.prod(input)
 
     output = []
-    for i, n in enumerate(input):
-        output[i] = total // n
+    for n in input:
+        output.append(total // n)
 
     return output

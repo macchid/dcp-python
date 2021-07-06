@@ -1,8 +1,8 @@
 import unittest, random
-from i_product_array.i_product_array import prod_array
+from pkg.i_product_array import prod_array
 
 class Params:
-    def __init__(self, input, output, res):
+    def __init__(self, input, output):
         self.input = input
         self.output = output
 
