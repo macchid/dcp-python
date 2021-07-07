@@ -51,6 +51,9 @@ class DoubleLinkedList:
         nodes.append("None")
         return " <-> ".join(nodes)
 
+    def __iter__(self):
+        return self.forward()
+
     def forward(self):
         node = self.head
         while node is not None:
